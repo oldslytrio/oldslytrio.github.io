@@ -1,1 +1,461 @@
-Hello World
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OldSlyTrio Solutions - Internal Portal</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=Orbitron:wght@400;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Courier Prime', monospace;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+            color: #00ff00;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        .glitch {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .glitch::before,
+        .glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: transparent;
+        }
+        
+        .glitch::before {
+            animation: glitch-1 0.5s infinite;
+            color: #ff0000;
+            z-index: -1;
+        }
+        
+        .glitch::after {
+            animation: glitch-2 0.5s infinite;
+            color: #00ffff;
+            z-index: -2;
+        }
+        
+        @keyframes glitch-1 {
+            0%, 14%, 15%, 49%, 50%, 99%, 100% {
+                transform: translate3d(0, 0, 0);
+            }
+            1%, 13% {
+                transform: translate3d(-2px, 0, 0);
+            }
+            16%, 48% {
+                transform: translate3d(2px, 0, 0);
+            }
+        }
+        
+        @keyframes glitch-2 {
+            0%, 20%, 21%, 62%, 63%, 99%, 100% {
+                transform: translate3d(0, 0, 0);
+            }
+            1%, 19% {
+                transform: translate3d(2px, 0, 0);
+            }
+            22%, 61% {
+                transform: translate3d(-2px, 0, 0);
+            }
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            border-bottom: 2px solid #00ff00;
+            padding-bottom: 20px;
+        }
+        
+        .logo {
+            font-family: 'Orbitron', monospace;
+            font-size: 3em;
+            font-weight: bold;
+            text-shadow: 0 0 20px #00ff00;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-size: 1.2em;
+            opacity: 0.7;
+            letter-spacing: 2px;
+        }
+        
+        .warning-banner {
+            background: linear-gradient(45deg, #ff0000, #aa0000);
+            color: white;
+            padding: 15px;
+            margin: 20px 0;
+            border-left: 5px solid #ffff00;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+        
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .panel {
+            background: rgba(0, 255, 0, 0.05);
+            border: 1px solid #00ff00;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.1);
+        }
+        
+        .panel h2 {
+            color: #ffff00;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+        
+        .message-intercept {
+            background: rgba(255, 0, 0, 0.1);
+            border: 2px solid #ff0000;
+            padding: 20px;
+            margin: 30px 0;
+            border-radius: 5px;
+            animation: flicker 3s infinite;
+        }
+        
+        @keyframes flicker {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+        
+        .message-header {
+            color: #ff0000;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .message-content {
+            font-style: italic;
+            line-height: 1.6;
+            color: #ffffff;
+        }
+        
+        .entity-list {
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid #555;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .entity {
+            margin-bottom: 15px;
+            padding: 10px;
+            background: rgba(255, 255, 0, 0.1);
+            border-left: 3px solid #ffff00;
+        }
+        
+        .entity-name {
+            color: #ffff00;
+            font-weight: bold;
+        }
+        
+        .entity-class {
+            color: #ff6600;
+            font-size: 0.9em;
+        }
+        
+        .terminal {
+            background: #000;
+            border: 1px solid #00ff00;
+            padding: 20px;
+            margin: 20px 0;
+            font-family: 'Courier Prime', monospace;
+            overflow-x: auto;
+        }
+        
+        .terminal-line {
+            margin: 5px 0;
+        }
+        
+        .prompt {
+            color: #00ff00;
+        }
+        
+        .error {
+            color: #ff0000;
+        }
+        
+        .classified {
+            background: #000;
+            color: #000;
+            padding: 2px 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .classified:hover {
+            background: #333;
+            color: #fff;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 50px;
+            padding-top: 20px;
+            border-top: 1px solid #333;
+            font-size: 0.9em;
+            opacity: 0.7;
+        }
+        
+        .entity-photo {
+            margin: 20px 0;
+            border: 2px solid #ff0000;
+            padding: 10px;
+            background: rgba(255, 0, 0, 0.1);
+            text-align: center;
+        }
+        
+        .security-photo {
+            width: 100%;
+            max-width: 400px;
+            height: auto;
+            filter: grayscale(1) contrast(1.2) brightness(0.8);
+            border: 1px solid #333;
+            animation: static-noise 0.5s infinite;
+        }
+        
+        @keyframes static-noise {
+            0%, 100% { filter: grayscale(1) contrast(1.2) brightness(0.8); }
+            50% { filter: grayscale(1) contrast(1.5) brightness(0.6) saturate(0.8); }
+        }
+        
+        .photo-caption {
+            margin-top: 10px;
+            font-size: 0.9em;
+            color: #ff6600;
+            text-align: center;
+        }
+        
+        @keyframes typewriter {
+            0% { width: 0; }
+            50% { width: 100%; }
+            100% { width: 0; }
+        }
+        
+        .corrupted {
+            background: linear-gradient(90deg, transparent, #ff0000, transparent);
+            animation: corrupt 2s infinite;
+        }
+        
+        @keyframes corrupt {
+            0%, 100% { transform: translateX(-100%); }
+            50% { transform: translateX(100%); }
+        }
+        
+        @media (max-width: 768px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .logo {
+                font-size: 2em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1 class="logo glitch" data-text="OLDSLYTRIO">OLDSLYTRIO</h1>
+            <p class="subtitle">SOLUTIONS & CONTAINMENT DIVISION</p>
+        </div>
+        
+        <div class="warning-banner">
+            <strong>⚠️ SECURITY BREACH DETECTED ⚠️</strong><br>
+            Unauthorized access to internal systems. All activities are being monitored.
+        </div>
+        
+        <div class="content-grid">
+            <div class="panel">
+                <h2>FACILITY STATUS</h2>
+                <p>Current Operations: <span style="color: #ffff00;">ACTIVE</span></p>
+                <p>Security Level: <span style="color: #ff0000;">BREACH PROTOCOL</span></p>
+                <p>Containment Units: <span style="color: #00ff00;">47/52 OPERATIONAL</span></p>
+                <p>Staff Status: <span style="color: #ff6600;">UNKNOWN</span></p>
+                <br>
+                <p style="font-size: 0.9em; opacity: 0.8;">Last update: 127 hours ago</p>
+            </div>
+            
+            <div class="panel">
+                <h2>RECENT INCIDENTS</h2>
+                <p>• Subject-7749 containment failure</p>
+                <p>• Communications array damaged</p>
+                <p>• <span class="classified">CLASSIFIED</span> entity breach in Sector-C</p>
+                <p>• Missing personnel: 23 individuals</p>
+                <p>• Emergency protocols activated</p>
+                <br>
+                <p style="color: #ff0000;">All non-essential personnel evacuated.</p>
+            </div>
+        </div>
+        
+        <div class="message-intercept">
+            <div class="message-header">
+                [INTERCEPTED TRANSMISSION - ORIGIN: UNKNOWN]
+            </div>
+            <div class="message-content">
+                "If anyone receives this, please help me. My name is Sarah Chen. I was taken by OldSlyTrio three weeks ago. They said I was selected for their 'research program' but this place... this place is not what they promised. 
+                
+                The corridors here stretch forever - yellow walls, buzzing lights, that smell... that terrible smell. I've seen things that shouldn't exist. Room 237 contains something that whispers in languages I don't recognize. The cafeteria serves food that moves when you're not looking.
+                
+                They keep us in cells that look like office cubicles during the day, but at night... at night the walls breathe. I've seen others disappear into the ventilation system. The guards aren't human - I don't know what they are, but they don't blink.
+                
+                I found this terminal in Sub-Level 7. The creatures down here are getting restless. Something big is coming. If you're reading this, don't trust OldSlyTrio. Don't let them take you. The yellow rooms never end, and neither does the screaming.
+                
+                Please, if anyone is out there... remember my name. Sarah Chen. Don't let them erase me like the others."
+            </div>
+        </div>
+        
+        <div class="panel">
+            <h2>CONTAINED ENTITIES - PARTIAL LIST</h2>
+            
+            <div class="entity-photo">
+                <img src="https://picsum.photos/400/300?grayscale&blur=1" alt="[CLASSIFIED SECURITY FOOTAGE]" class="security-photo">
+                <div class="photo-caption">
+                    <strong>SECURITY FOOTAGE - SECTOR C</strong><br>
+                    Entity-147 manifestation during containment breach<br>
+                    <span style="color: #ff0000;">⚠️ COGNITOHAZARD WARNING ⚠️</span>
+                </div>
+            </div>
+            
+            <div class="entity-list">
+                <div class="entity">
+                    <div class="entity-name">Entity-147 "The Flickering Man"</div>
+                    <div class="entity-class">Classification: Euclid | Status: CONTAINED</div>
+                    <p>Humanoid entity that phases in and out of visibility. Emits electromagnetic interference.</p>
+                </div>
+                
+                <div class="entity">
+                    <div class="entity-name">Entity-203 "Maze Walker"</div>
+                    <div class="entity-class">Classification: Keter | Status: BREACH</div>
+                    <p>Manipulates spatial dimensions. Responsible for the infinite corridor phenomenon.</p>
+                </div>
+                
+                <div class="entity">
+                    <div class="entity-name">Entity-089 "The Whispering Walls"</div>
+                    <div class="entity-class">Classification: Safe | Status: ACTIVE</div>
+                    <p>Sentient building material that communicates through vibrations and sound.</p>
+                </div>
+                
+                <div class="entity">
+                    <div class="entity-name">Entity-<span class="classified">CLASSIFIED</span></div>
+                    <div class="entity-class">Classification: <span class="classified">CLASSIFIED</span> | Status: <span style="color: #ff0000;">CRITICAL</span></div>
+                    <p><span class="classified">INFORMATION RESTRICTED TO LEVEL 5 PERSONNEL ONLY</span></p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="terminal">
+            <div class="terminal-line"><span class="prompt">oldslytrio@facility-7>_</span> status_report.exe</div>
+            <div class="terminal-line">Loading facility diagnostics...</div>
+            <div class="terminal-line">Scanning sectors...</div>
+            <div class="terminal-line"><span class="error">ERROR: Multiple containment breaches detected</span></div>
+            <div class="terminal-line"><span class="error">ERROR: Communication array offline</span></div>
+            <div class="terminal-line"><span class="error">ERROR: Life support systems compromised</span></div>
+            <div class="terminal-line">Search results for "Sarah Chen": <span class="error">ACCESS DENIED</span></div>
+            <div class="terminal-line"><span class="prompt">oldslytrio@facility-7>_</span> <span class="creepy-text">they_are_watching_you</span></div>
+        </div>
+        
+        <div style="text-align: center; margin: 30px 0;">
+            <p style="color: #ff0000; font-size: 1.1em;">DO NOT ATTEMPT TO CONTACT OLDSLYTRIO DIRECTLY</p>
+            <p style="color: #ffff00;">Continue monitoring for further transmissions</p>
+        </div>
+        
+        <div class="footer">
+            <p>OldSlyTrio Solutions - "Containing Tomorrow, Today"</p>
+            <p style="font-size: 0.8em; margin-top: 10px;">This system is monitored. Unauthorized access will result in immediate termination.</p>
+        </div>
+    </div>
+    
+    <script>
+        // Add some interactive horror elements
+        document.addEventListener('DOMContentLoaded', function() {
+            // Random glitch effect
+            setInterval(function() {
+                const glitchElements = document.querySelectorAll('.glitch');
+                glitchElements.forEach(element => {
+                    if (Math.random() < 0.1) {
+                        element.style.transform = `translate(${Math.random() * 4 - 2}px, ${Math.random() * 4 - 2}px)`;
+                        setTimeout(() => {
+                            element.style.transform = 'translate(0, 0)';
+                        }, 100);
+                    }
+                });
+            }, 2000);
+            
+            // Typing effect for terminal
+            const terminalLines = document.querySelectorAll('.terminal-line');
+            let currentLine = 0;
+            
+            function typeNextLine() {
+                if (currentLine < terminalLines.length) {
+                    terminalLines[currentLine].style.opacity = '0';
+                    setTimeout(() => {
+                        terminalLines[currentLine].style.opacity = '1';
+                        currentLine++;
+                        setTimeout(typeNextLine, 800);
+                    }, 200);
+                }
+            }
+            
+            // Start typing effect after page load
+            setTimeout(typeNextLine, 2000);
+            
+            // Add hover effects to classified text
+            document.querySelectorAll('.classified').forEach(element => {
+                element.addEventListener('mouseenter', function() {
+                    if (Math.random() < 0.3) {
+                        document.body.style.filter = 'invert(1)';
+                        setTimeout(() => {
+                            document.body.style.filter = 'invert(0)';
+                        }, 100);
+                    }
+                });
+            });
+            
+            // Add photo glitch effect
+            const photo = document.querySelector('.security-photo');
+            if (photo) {
+                setInterval(() => {
+                    if (Math.random() < 0.1) {
+                        photo.style.filter = 'grayscale(1) contrast(2) brightness(0.3) hue-rotate(180deg)';
+                        setTimeout(() => {
+                            photo.style.filter = 'grayscale(1) contrast(1.2) brightness(0.8)';
+                        }, 150);
+                    }
+                }, 3000);
+            }
+        });
+    </script>
+</body>
+</html>
